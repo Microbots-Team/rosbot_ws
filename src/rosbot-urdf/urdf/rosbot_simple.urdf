@@ -1,0 +1,73 @@
+<?xml version="1.0" ?>
+<robot name="urdfbot">
+    <material name="body">
+        <color rgba="0.1 0.6 0.9 0.5"/>
+    </material>
+    <material name="wheel">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+    </material>
+
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 3"/>
+            <geometry>
+                <cylinder radius="12.5" length="4.8"/>
+            </geometry>
+            <material name="body"/>
+        </visual>
+        <collision>
+        <origin xyz="0 0 3"/>
+            <geometry>
+                <cylinder radius="12.5" length="4.8"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="left_wheel_link">
+        <visual>
+            <origin xyz="0.75 0 0" rpy="0 1.5707963268 0.0"/>
+            <geometry>
+                <cylinder radius="3" length="1.5"/>
+                <!-- <box size="6 6 1.5"/> -->
+            </geometry>
+            <material name="wheel"/>
+        </visual>
+        <collision>
+            <origin xyz="0.75 0 0" rpy="0 1.5707963268 0.0"/>
+            <geometry>
+                <cylinder radius="3" length="1.5"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="right_wheel_link">
+        <visual>
+            <origin xyz="-0.75 0 0" rpy="0 1.5707963268 0.0"/>
+            <geometry>
+                <cylinder radius="3" length="1.5"/>
+            </geometry>
+            <material name="wheel"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.75 0 0" rpy="0 1.5707963268 0.0"/>
+            <geometry>
+                <cylinder radius="3" length="1.5"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="left_wheel_joint" type="continuous">
+        <origin xyz="6 3 3"/>
+        <parent link="base_link"/>
+        <child link="left_wheel_link"/>
+        <axis xyz="1.0 0.0 0.0"/>
+    </joint>
+
+    <joint name="right_wheel_joint" type="continuous">
+        <origin xyz="-6 3 3"/>
+        <parent link="base_link"/>
+        <child link="right_wheel_link"/>
+        <axis xyz="1.0 0.0 0.0"/>
+    </joint>
+</robot>
+
