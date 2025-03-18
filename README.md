@@ -1,4 +1,4 @@
-# rosbot-ws
+# rosbot_ws
 
 ROS2 Workspace of the Romba-like robot.
 
@@ -13,12 +13,10 @@ ROS2 Workspace of the Romba-like robot.
 	```
 
 2. Activate your ROS2 installation.
-3. Enter the clone workspace directory (`rosbot_ws`).
+3. Enter the cloned workspace directory: `cd ~/rosbot_ws`.
 4. Run `colcon build --symlink-install`.
 5. Activate the workspace overlay: `. ~/rosbot_ws/install/local_install.bash`.
 6. Have a nice day!
-
-## Contribution
 
 ### Creating additional packages
 
