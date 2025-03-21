@@ -31,14 +31,22 @@
         3. Get example message using `ros2 interface proto <type>`.
             - `ros2 interface proto geometry_msgs/msg/Twist`.
     - We can use `rqt` for sending messages and call services manually using a GUI.
+        - ⓘ A fun exercise would be using the `Robot Steering` plugin for controlling the turtle.
+            - In-fact, a bunch of exercises can be done on the `rqt`.
 6. Lets focus on making the robot move linearly.
     - Start by creating a python file, writing the boilerplate code, and defining the node executable in `setup.py`.
+        - Make sure to add `<exec_depend>rclpy</exec_depend>` in `package.xml`.
         - A simple `Hello robots!` example with keyboard interrupt exception suppression.
     - Lets call our main node & executable `draw_shape`.
     - Build package using `colcon` and the symlink option:
         - `colcon build --symlink-install` (be sure to be in the root workspace directory)
-    - Reactive the workspace for the changes to take effect.
+    - Reactivate the workspace for the changes to take effect.
         - Reactivation is only needed when adding new executables to a package.
+    - Now into putting the turtle into motion by code.
+        - Add `<exec_depend>geometry_msgs</exec_depend>` to `package.xml` since we are going to use it.
+        - Create a publisher, construct a message and send it.
+7. Sequencing commands based on `time.sleep`.
+    - Pack the message publishing code into a function for easier usage.
 
 ### Tips
 
@@ -52,6 +60,7 @@
     - There are packages containing types definitions only, their name usually ends with `_msgs`, like `geometry_msgs`.
     - The types definitions are usually contained in the sub-directories `msg` and `srv` within packages.
     - Robots packages usually come with a `_teleop_key` node for testing the robot using manual control.
+- If `rqt` got messed up,
 
 ### Further Reading
 
