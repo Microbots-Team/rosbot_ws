@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-  <name>shapes-turtles</name>
+  <name>shapes_turtles</name>
   <version>0.1.0</version>
   <description>For drawing primitive shapes in turtlesim.</description>
   <maintainer email="rami.sab07@gmail.com">Rami Sabbagh</maintainer>

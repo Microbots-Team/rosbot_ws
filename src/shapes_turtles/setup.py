@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'shapes-turtles'
+package_name = 'shapes_turtles'
 
 setup(
     name=package_name,
