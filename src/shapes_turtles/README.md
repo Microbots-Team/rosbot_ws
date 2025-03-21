@@ -33,10 +33,17 @@
     - We can use `rqt` for sending messages and call services manually using a GUI.
 6. Lets focus on making the robot move linearly.
     - Start by creating a python file, writing the boilerplate code, and defining the node executable in `setup.py`.
+        - A simple `Hello robots!` example with keyboard interrupt exception suppression.
     - Lets call our main node & executable `draw_shape`.
+    - Build package using `colcon` and the symlink option:
+        - `colcon build --symlink-install` (be sure to be in the root workspace directory)
+    - Reactive the workspace for the changes to take effect.
+        - Reactivation is only needed when adding new executables to a package.
 
 ### Tips
 
+- _Give tips on enabling VS Code auto-imports completion, type checker, auto-formatting with black, auto-saving._
+- _Give tips on ordering imports and categorizing them (lookup the actual PEP I'm following)._
 - For any ROS2 command, we can see the available sub-commands and options by executing it directly or with the `--help`/`-h` option.
     - `ros2`, `ros2 topic`, `ros2 -h`, `ros2 topic list --help`.
 - **Always name your packages and python files using underscores (`_`), not hyphens (`-`)!**
