@@ -49,6 +49,7 @@
         - Create a publisher, construct a message and send it.
 7. Sequencing commands based on `time.sleep`.
     - Pack the message publishing code into a function for easier usage.
+        - TODO: Add `float` conversion for convenience.
     - Temporary comment out `rclpy.spin` to bring the node into termination once program is done.
     - Use `ros2 service call /reset std_srvs/srv/Empty` to reset the sim.
     - The result shape has imperfect angles ⚠️
@@ -56,6 +57,17 @@
     - `ros2 action list` ⇒ `/turtle1/rotate_absolute`.
     - `ros2 action type /turtle1/rotate_absolute` ⇒ `turtlesim/action/RotateAbsolute`.
     - `ros2 interface show turtlesim/action/RotateAbsolute`.
+    - We can command it manually using: `ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute '{theta: 3.14}'`.
+        - Add `-f` for feedback.
+    - Check the [official guide](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html#writing-an-action-client) on writing an action client.
+    - `send_goal` gets stuck, because it's synchronous and the node is not spinning. It probably needs multi-threading. Use the async variant instead.
+    - One can enable debug logging by adding `--ros-args --log-level DEBUG` options.
+        - But this enables `rclpy` debugging logging too which shows logs we didn't ask for.
+    - Instead use `logger.set_level(LoggingSeverity.DEBUG)`.
+9. TODO: Use service calls to colorize the shapes.
+10. TODO: Use `/turtle1/pose` instead of `time.step` for controlling when to stop.
+    - TODO: Create method for getting pose, position, theta.
+11. TODO: Extract the movement code into an action (absolute move).
 
 ### Tips
 
