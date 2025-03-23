@@ -14,6 +14,18 @@ from turtlesim.action import RotateAbsolute
 from turtlesim.srv import SetPen
 
 
+PALETTE = [
+    (255, 0, 0),
+    (0, 255, 0),
+    (0, 0, 255),
+    (200, 200, 0),
+    (200, 0, 200),
+    (0, 200, 200),
+    (255, 255, 255),
+    (0, 0, 0),
+]
+
+
 class DrawNodeShape:
     def __init__(self):
         self.node = Node("draw_shape")
@@ -37,22 +49,11 @@ class DrawNodeShape:
         self.logger.info("Program finished.")
 
     def program(self) -> None:
-        palette = [
-            (255, 0, 0),
-            (0, 255, 0),
-            (0, 0, 255),
-            (200, 200, 0),
-            (200, 0, 200),
-            (0, 200, 200),
-            (255, 255, 255),
-            (0, 0, 0),
-        ]
-
         shape_id = 0
 
         for vertices in [3, 5, 9]:
             for speed in [1, 2]:
-                self.set_pen(palette[shape_id % len(palette)])
+                self.set_pen(PALETTE[shape_id % len(PALETTE)])
                 self.draw_shape(vertices, speed)
                 shape_id += 1
 
