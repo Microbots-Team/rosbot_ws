@@ -57,7 +57,7 @@ class DrawNodeShape:
         self.logger.debug("Waiting for absolute rotation server to be ready..")
         self.act_rotate_absolute.wait_for_server()
 
-        self.logger.debug(f"Rotating => {math.degrees(goal.theta)}°")
+        self.logger.debug(f"Rotating => {math.degrees(goal.theta):.1f}°")
         handle_future = self.act_rotate_absolute.send_goal_async(goal)
         rclpy.spin_until_future_complete(self.node, handle_future)
         handle: ClientGoalHandle = handle_future.result()  # type: ignore
