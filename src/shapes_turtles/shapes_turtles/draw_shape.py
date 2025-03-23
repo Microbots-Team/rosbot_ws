@@ -111,15 +111,11 @@ class DrawNodeShape:
     def stop(self) -> None:
         self.move(linear=0.0, angular=0.0)
 
-    def spin(self):
-        # rclpy.spin(self.node)
-        pass
-
 
 def main(args=None):
     with suppress(KeyboardInterrupt):
         rclpy.init(args=args)
-        DrawNodeShape().spin()
+        DrawNodeShape()
         rclpy.shutdown()
     print()
 

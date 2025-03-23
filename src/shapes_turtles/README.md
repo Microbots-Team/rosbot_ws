@@ -59,7 +59,7 @@
     - `ros2 interface show turtlesim/action/RotateAbsolute`.
     - We can command it manually using: `ros2 action send_goal /turtle1/rotate_absolute turtlesim/action/RotateAbsolute '{theta: 3.14}'`.
         - Add `-f` for feedback.
-    - Check the [official guide](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html#writing-an-action-client) on writing an action client.
+    - Check the [official action server/client guide](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Writing-an-Action-Server-Client/Py.html#writing-an-action-client).
     - `send_goal` gets stuck, because it's synchronous and the node is not spinning. It probably needs multi-threading. Use the async variant instead.
     - One can enable debug logging by adding `--ros-args --log-level DEBUG` options.
         - But this enables `rclpy` debugging logging too which shows logs we didn't ask for.
@@ -69,7 +69,17 @@
     - `/turtle1/set_pen` will do the job.
         - Needs `RGB`, `Width` and `Off` (Enable/Disable) values.
     - The simulation can be reset using `ros2 service call /reset std_srvs/srv/Empty`.
-10. TODO: Tiered of resetting the simulation manually each time? time to use launch files.
+10. Tired of resetting the simulation manually each time? time to use launch files.
+    - Check the [official launch files guide](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Creating-Launch-Files.html).
+    - Create `/launch/launch_single.py`.
+    - Add `<exec_depend>ros2launch</exec_depend>` to `project.xml`.
+    - Follow [Integrate launch files into ROS2 packages](https://docs.ros.org/en/jazzy/Tutorials/Intermediate/Launch/Launch-system.html).
+        - Pay attention to the modified glob pattern in the applied `setup.py`:
+        `(f"share/{package_name}/launch", glob(f"launch/launch_*.[pxy][yma]*")),`
+    - Rebuild and reactivate the workspace for the changes to take effect.
+    - `ros2 launch shapes_turtles launch_single.py`.
+    - TODO: Demonstrate later in the course how lunch files don't have to be contained in packages.
+
 11. TODO: Use `/turtle1/pose` instead of `time.step` for controlling when to stop.
     - TODO: Create method for getting pose, position, theta.
 12. TODO: Extract the movement code into an action (absolute move).
