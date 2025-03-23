@@ -64,10 +64,15 @@
     - One can enable debug logging by adding `--ros-args --log-level DEBUG` options.
         - But this enables `rclpy` debugging logging too which shows logs we didn't ask for.
     - Instead use `logger.set_level(LoggingSeverity.DEBUG)`.
-9. TODO: Use service calls to colorize the shapes.
-10. TODO: Use `/turtle1/pose` instead of `time.step` for controlling when to stop.
+9. Use service calls to colorize the shapes.
+    - `rqt` can be handy to check services, topics, etc.. types fields.
+    - `/turtle1/set_pen` will do the job.
+        - Needs `RGB`, `Width` and `Off` (Enable/Disable) values.
+    - The simulation can be reset using `ros2 service call /reset std_srvs/srv/Empty`.
+10. TODO: Tiered of resetting the simulation manually each time? time to use launch files.
+11. TODO: Use `/turtle1/pose` instead of `time.step` for controlling when to stop.
     - TODO: Create method for getting pose, position, theta.
-11. TODO: Extract the movement code into an action (absolute move).
+12. TODO: Extract the movement code into an action (absolute move).
 
 ### Tips
 

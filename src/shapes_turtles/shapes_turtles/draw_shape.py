@@ -1,6 +1,7 @@
 import math
 from contextlib import suppress
 from time import sleep
+from tkinter import W
 
 import rclpy
 from rclpy.action import ActionClient
@@ -10,6 +11,7 @@ from rclpy.node import Node
 from rclpy.task import Future
 from geometry_msgs.msg import Twist
 from turtlesim.action import RotateAbsolute
+from turtlesim.srv import SetPen
 
 
 class DrawNodeShape:
@@ -21,7 +23,10 @@ class DrawNodeShape:
         # -- Publishers
         self.cmd_vel = self.node.create_publisher(Twist, "/turtle1/cmd_vel", 5)
 
-        # -- Action Clients
+        # -- Services Clients
+        self.srv_set_pen = self.node.create_client(SetPen, "/turtle1/set_pen")
+
+        # -- Actions Clients
         self.act_rotate_absolute = ActionClient(
             self.node, RotateAbsolute, "/turtle1/rotate_absolute"
         )
@@ -32,11 +37,24 @@ class DrawNodeShape:
         self.logger.info("Program finished.")
 
     def program(self) -> None:
-        # self.draw_shape(3)
+        palette = [
+            (255, 0, 0),
+            (0, 255, 0),
+            (0, 0, 255),
+            (200, 200, 0),
+            (200, 0, 200),
+            (0, 200, 200),
+            (255, 255, 255),
+            (0, 0, 0),
+        ]
 
-        for i in [3, 5, 9]:
-            for j in [1, 2]:
-                self.draw_shape(i, j)
+        shape_id = 0
+
+        for vertices in [3, 5, 9]:
+            for speed in [1, 2]:
+                self.set_pen(palette[shape_id % len(palette)])
+                self.draw_shape(vertices, speed)
+                shape_id += 1
 
     def draw_shape(self, vertices: int, speed=1.0) -> None:
         self.logger.info(
@@ -46,9 +64,21 @@ class DrawNodeShape:
 
         for i in range(vertices):
             self.rotate_absolute(i * vertex_angle)
-            self.move(linear=speed * 4)
-            sleep(1 / 4)
+            self.move(linear=speed)
+            sleep(1)
         self.stop()
+
+    def set_pen(
+        self, color: tuple[int, int, int] = (1, 1, 1), width=3, active=True
+    ) -> None:
+        req = SetPen.Request()
+        req.r, req.g, req.b = color
+        req.width = width
+        req.off = int(not active)
+
+        res_future = self.srv_set_pen.call_async(req)
+        rclpy.spin_until_future_complete(self.node, res_future)
+        res_future.result()
 
     def rotate_absolute(self, theta: float) -> None:
         goal = RotateAbsolute.Goal()
