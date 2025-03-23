@@ -3,6 +3,7 @@
 
 1. Create the package using `ros2 pkg create --built-type ament_python --license MIT shapes_turtles`.
 2. Set the project version, description, maintainer details in both `package.xml` and `setup.py`.
+    - Add `<exec_depend>turtlesim</exec_depend>` to `package.xml`.
 3. Start a `turtlesim` instance using `ros2 run turtlesim turtlesim_node` (in a background terminal).
     - If you forgot the exact name of a package, and it's executables names, you can check them through `ros2 pkg list`
     and `ros2 pkg executables <pkg-name>`.
@@ -42,11 +43,19 @@
         - `colcon build --symlink-install` (be sure to be in the root workspace directory)
     - Reactivate the workspace for the changes to take effect.
         - Reactivation is only needed when adding new executables to a package.
+    - Try it out using `ros2 run shapes_turtles draw_shape`.
     - Now into putting the turtle into motion by code.
         - Add `<exec_depend>geometry_msgs</exec_depend>` to `package.xml` since we are going to use it.
         - Create a publisher, construct a message and send it.
 7. Sequencing commands based on `time.sleep`.
     - Pack the message publishing code into a function for easier usage.
+    - Temporary comment out `rclpy.spin` to bring the node into termination once program is done.
+    - Use `ros2 service call /reset std_srvs/srv/Empty` to reset the sim.
+    - The result shape has imperfect angles ⚠️
+8. Utilizing the `/turtle1/rotate_absolute` action.
+    - `ros2 action list` ⇒ `/turtle1/rotate_absolute`.
+    - `ros2 action type /turtle1/rotate_absolute` ⇒ `turtlesim/action/RotateAbsolute`.
+    - `ros2 interface show turtlesim/action/RotateAbsolute`.
 
 ### Tips
 
