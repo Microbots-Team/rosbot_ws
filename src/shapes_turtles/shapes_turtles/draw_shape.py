@@ -1,7 +1,6 @@
 import math
 from contextlib import suppress
 from time import sleep
-from tkinter import W
 
 import rclpy
 from rclpy.action import ActionClient
